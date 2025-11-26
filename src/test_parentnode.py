@@ -28,6 +28,16 @@ def test_to_html_with_grandchildren(self):
     )
 
 
+def test_to_html_with_grandchildren_props(self):
+    grandchild_node = LeafNode("b", "grandchild")
+    child_node = ParentNode("span", [grandchild_node])
+    parent_node = ParentNode("div", [child_node], props=[("id", "parent-id")])
+    self.assertEqual(
+        parent_node.to_html(),
+        "<div><span id='parent-id'><b>grandchild</b></span></div>",
+    )
+
+
 def test_to_html_with_props(self):
     child_node = LeafNode("span", "child", props=[("class", "child-class")])
     parent_node = ParentNode("div", [child_node], props=[("id", "parent-id")])
